@@ -1,5 +1,16 @@
 grammar MyLang;
 
+file: exp EOF;
+
+exp
+    : literal       #lit
+    | exp PLUS exp  #add
+    ;
+
+
 literal: NUMBER;
 
-NUMBER: '-'? [0-9]+[lL]?;
+PLUS: '+';
+NUMBER: [0-9]+;
+
+WS: ' ' -> skip;

@@ -7,15 +7,17 @@ import org.antlr.v4.runtime.*;
 
 public class Program {
     public static void main(String[] args) {
-        String content = "1234";
+        String content = "1 + 2 + 3";
 
         MyLangLexer lexer = new MyLangLexer(CharStreams.fromString(content));
         TokenStream tokens = new CommonTokenStream(lexer);
         MyLangParser parser = new MyLangParser(tokens);
 
         MyVisitor visitor = new MyVisitor();
-        AST token = visitor.visit(parser.literal());
+        AST syntaxTree = visitor.visit(parser.file());
 
-        System.out.println(token);
+        System.out.println(syntaxTree);
+
+        System.out.println(Evaluator.evaluate(syntaxTree));
     }
 }
